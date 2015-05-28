@@ -14,6 +14,7 @@ module.exports = function(ret, conf, settings, opt){
     var pkgs = [];
     var index = 0;
 
+    var deleteRules = [];
     fis.util.map(conf, function(path, patterns) {
         if (typeof patterns === 'string' || patterns instanceof RegExp) {
             patterns = [patterns];
@@ -22,24 +23,31 @@ module.exports = function(ret, conf, settings, opt){
         if (!/^\!CB~/.test(path)){
             return;
         }else{
+            deleteRules.push(path);
             var mp = path.match(/^!CB~(.*)$/);
             path = mp[1];
-        }
-        if (fis.util.is(patterns, 'Array') && patterns.length) {
-            var pid = (ns ? ns + connector : '') + 'p' + index++;
-            var subpath = path.replace(/^\//, '');
 
-            pkgs.push({
-                id: pid,
-                regs: patterns,
-                pkgs: new Array(patterns.length),
-                subpath: subpath
-            });
-        } else {
-            fis.log.warning('invalid pack config [' + path + ']');
+            if (fis.util.is(patterns, 'Array') && patterns.length) {
+                var pid = (ns ? ns + connector : '') + 'p' + index++;
+                var subpath = path.replace(/^\//, '');
+
+                pkgs.push({
+                    id: pid,
+                    regs: patterns,
+                    pkgs: new Array(patterns.length),
+                    subpath: subpath
+                });
+            } else {
+                fis.log.warning('invalid pack config [' + path + ']');
+            }
+
+
         }
     });
-
+    // delete !CB~ rules
+    fis.util.map(deleteRules, function(key, path) {
+        delete conf[path];
+    });
 
     //determine if subpath hit a pack config
     var hit = function(subpath, regs) {
