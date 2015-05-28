@@ -1,5 +1,5 @@
 {
-  "name": "fis-packager-depscombine",
+  "name": "fis-packager-depscombine-pattern",
   "version": "0.0.8",
   "description": "auto pack fis",
   "main": "index.js",
@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fex-team/fis-packager-depscombine.git"
+    "url": "https://github.com/xch89820/fis-packager-depscombine-pattern"
   },
   "keywords": [
     "fis",
     "auto",
     "pack"
   ],
-  "author": "2betop",
+  "author": "xu.chenhui",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fex-team/fis-packager-depscombine/issues"
+    "url": "https://github.com/xch89820/fis-packager-depscombine-pattern/issues"
   },
-  "homepage": "https://github.com/fex-team/fis-packager-depscombine"
+  "homepage": "https://github.com/fex-team/fis-packager-depscombine-pattern"
 }

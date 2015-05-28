@@ -1,6 +1,9 @@
 /**
  * 自动把依赖合并成文件。
  *
+ * 增加!CB~标志位
+ * 只有在标志位匹配的情况下才应用这个打包规则并深度搜索
+ *
  * 在这种情况下，无需人肉查找依赖，手动配置，只需要把入口文件写上，自动查找依赖。
  */
 
@@ -11,12 +14,17 @@ module.exports = function(ret, conf, settings, opt){
     var pkgs = [];
     var index = 0;
 
-
     fis.util.map(conf, function(path, patterns) {
         if (typeof patterns === 'string' || patterns instanceof RegExp) {
             patterns = [patterns];
         }
 
+        if (!/^\!CB~/.test(path)){
+            return;
+        }else{
+            var mp = path.match(/^!CB~(.*)$/);
+            path = mp[1];
+        }
         if (fis.util.is(patterns, 'Array') && patterns.length) {
             var pid = (ns ? ns + connector : '') + 'p' + index++;
             var subpath = path.replace(/^\//, '');
