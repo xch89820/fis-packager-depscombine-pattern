@@ -28,7 +28,7 @@ module.exports = function(ret, conf, settings, opt){
             path = mp[1];
 
             if (fis.util.is(patterns, 'Array') && patterns.length) {
-                var pid = (ns ? ns + connector : '') + 'p' + index++;
+                var pid = (ns ? ns + connector : '') + 'bp' + index++;
                 var subpath = path.replace(/^\//, '');
 
                 pkgs.push({
